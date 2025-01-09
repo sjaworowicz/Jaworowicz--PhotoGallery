@@ -74,6 +74,7 @@ $(document).ready( function() {
 });
 
 function iterateJSON() {
+	const GalleryImage = [location, description, date, img];
 	mJson.forEach(GalleryImage(mImages));
 };
 
