@@ -59,12 +59,19 @@ var mUrl = 'images.json';
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
 //@param A GalleryImage object. Use this method for an event handler for loading a gallery Image object (optional).
-function makeGalleryImageOnloadCallback(galleryImage) {
+function makeGalleryImageOnloadCallback(GalleryImage) {
 	return function(e) {
-		galleryImage.img = e.target;
-		mImages.push(galleryImage);
+		GalleryImage.img = e.target;
+		mImages.push(GalleryImage);
 	}
 }
+
+
+	function iterateJson() {
+		mJson.images.forEach(makeGalleryImageOnloadCallback);
+};
+
+console.log(iterateJson());
 
 $(document).ready( function() {
 	
@@ -83,6 +90,8 @@ function fetchJSON() {
 mRequest.onreadystatechange = function(){
 	if(this.readyState == 4 && this.status == 200)
 	mJson = JSON.parse(mRequest.responseText);
+	console.log(mJson);
+	console.log(mJson.images[0])
 	iterateJSON();
 };
 mRequest.open("GET", mUrl, true);
