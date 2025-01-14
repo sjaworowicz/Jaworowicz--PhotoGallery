@@ -68,10 +68,15 @@ function makeGalleryImageOnloadCallback(GalleryImage) {
 
 
 	function iterateJson() {
-		mJson.images.forEach(makeGalleryImageOnloadCallback);
+		mJson.images.forEach(creategalleryImageObjects);
+		function creategalleryImageObjects(){
+		let galleryImageObjects = new GalleryImage(imgLocation, description, date, imgPath);
+		console.log(galleryImageObjects);
+	}
+	mImages.JSON(galleryImageObjects);
 };
 
-console.log(iterateJson());
+ // var mImages= ["imgPath", "imgLocation", "description", "date"];
 
 $(document).ready( function() {
 	
