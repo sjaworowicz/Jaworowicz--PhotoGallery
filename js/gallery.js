@@ -33,11 +33,18 @@ function animate() {
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
 function swapPhoto() {
-	var slideShow = $("slideShow");
-	var imgElement = $("photo");
-	imgElement.attr("src", "mImages[1].imgPath");
-	//from the JSON string
-	console.log('swap photo');
+	if(mCurrentIndex >= mImages.length)
+		{
+		  mCurrentIndex = 0;
+		}
+	   
+		console.log('swap photo');
+
+		$("#photo").attr('src', mImages[mCurrentIndex].img);
+		$(".location").text("Location: " + mImages[mCurrentIndex].location);
+		$(".description").text("Description: " + mImages[mCurrentIndex].description);
+		$(".date").text("Date: " + mImages[mCurrentIndex].date);
+		mCurrentIndex++;
 }
 
 // Counter for the mImages array
@@ -61,60 +68,53 @@ var mUrl = 'images.json';
 //@param A GalleryImage object. Use this method for an event handler for loading a gallery Image object (optional).
 function makeGalleryImageOnloadCallback(GalleryImage) {
 	return function(e) {
-		GalleryImage.img = e.target;
-		mImages.push(GalleryImage);
+	GalleryImage.img = e.target;
+	mImages.push(GalleryImage);
 	}
-}
+	}
 
 	function iterateJson() {
-		mJson.images.forEach(element => {
+	mJson.images.forEach(element => {
 	let galleryImageObjects = new GalleryImage(
 		element.imgLocation,
 		element.description,
 		element.date,
-		element.imgPath,
+		element.imgPath
 	);
 
 	mImages.push(galleryImageObjects);
 	});
-	console.log(mImages[1].imgLocation);
-};
-
-$(document).ready( function() {
 	
-	// This initially hides the photos' metadata information
-	$('.details').eq(0).hide();
-	
-});
-
-function iterateJSON() {
-	const GalleryImage = [location, description, date, img];
-	mJson.forEach(GalleryImage(mImages));
-};
+}
 
 function fetchJSON() {
 mRequest.onreadystatechange = function(){
 	if(this.readyState == 4 && this.status == 200)
 	mJson = JSON.parse(mRequest.responseText);
-	console.log(mJson);
-	console.log(mJson.images[0])
-	iterateJSON();
+	iterateJson();
 };
 mRequest.open("GET", mUrl, true);
 mRequest.send();
 	}
 
-
-
-window.addEventListener('load', function() {
+	$(document).ready( function() {
 	
-	console.log('window loaded');
+		// This initially hides the photos' metadata information
+		$('.details').eq(0).hide();
+		fetchJSON();
+		
+	});
 
-}, false);
+	window.addEventListener('load', function() {
+	
+	}, false);
 
-function GalleryImage(location, description, date, img) {
-	this.location = location;
-	this.description = description;
-	this.date = date;
-	this.img = img;
+	class GalleryImage {
+	constructor(location, description, date, img) {
+
+		this.location = location;
+		this.description = description;
+		this.date = date;
+		this.img = img;
+	}
 }
