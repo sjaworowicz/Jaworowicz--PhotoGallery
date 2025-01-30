@@ -128,5 +128,17 @@ $("img.moreIndicator").click(function(){
 	$("img.moreIndicator").removeClass("rot270");
 	$("img.moreIndicator").addClass("rot90");
   }
+  $("div.details").fadeToggle();
  });
 });
+
+$(document).ready(function() {
+	$("#nextPhoto").click(function() {
+	  $("#gallery").flush(); 
+	});
+	$("#prevPhoto").click(function() {
+		$("#gallery").flush(); 
+	  });
+  });
+
+  
