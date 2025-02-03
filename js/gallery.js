@@ -141,4 +141,16 @@ $(document).ready(function() {
 	  });
   });
 
-  
+$(document).ready(function (){
+	const queryString = window.location.search;
+	const ulParams = new URLSearchParams(queryString);
+	const json = ulParams.get('json');
+	console.log("json");
+
+	if(json === 'images.short.json'){
+		mUrl='images.short.json';
+	} else {
+		mUrl='images.json'
+	}
+	
+});
