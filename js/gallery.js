@@ -132,25 +132,36 @@ $("img.moreIndicator").click(function(){
  });
 });
 
-$(document).ready(function() {
-	$("#nextPhoto").click(function() {
-	  $("#gallery").flush(); 
+function toggleDetails()
+{
+  if($(".moreIndicator").hasClass("rot90"))
+  {
+    $( ".moreIndicator" ).removeClass("rot90");
+    $(".moreIndicator").addClass("rot270");
+  }
+  else {
+    $( ".moreIndicator" ).removeClass("rot270");
+    $(".moreIndicator").addClass("rot90");
+  }
+  $( ".details" ).slideToggle( "slow", "linear" );
+}
+$( "#nextPhoto" ).position({
+	my: "right bottom",
+	at: "right bottom",
+	of: "#nav"
 	});
-	$("#prevPhoto").click(function() {
-		$("#gallery").flush(); 
-	  });
-  });
 
-$(document).ready(function (){
-	const queryString = window.location.search;
-	const ulParams = new URLSearchParams(queryString);
-	const json = ulParams.get('json');
-	console.log("json");
-
-	if(json === 'images.short.json'){
-		mUrl='images.short.json';
-	} else {
-		mUrl='images.json'
-	}
+	mLastFrameTime = 0;
 	
+	if(mCurrentIndex < 0) {
+
+		mCurrentIndex = mImages.length-1;
+   }
+
+   $( "#prevPhoto" ).click(function() {
+	mCurrentIndex-=2;
+	swapPhoto();
+});
+$( "#nextPhoto" ).click(function() {
+	swapPhoto();
 });
