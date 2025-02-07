@@ -165,3 +165,12 @@ $( "#nextPhoto" ).position({
 $( "#nextPhoto" ).click(function() {
 	swapPhoto();
 });
+
+const json = window.location.search;
+console.log(json);
+//index.html?json=images-short.json
+
+const urlParams = new URLSearchParams(queryString);
+
+const alternate = urlParams.get(json)
+console.log(alternate);
